@@ -1,0 +1,40 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# MongoDB
+/data/
+*.lock
+
+# Environment variables
+.env
+
+# Views and public files (if dynamically generated)
+views/*.tmp
+public/tmp/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE/editor files
+.idea/
+.vscode/
+*.swp
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files and folders
+tmp/
+temp/
+.cache/
