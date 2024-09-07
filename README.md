@@ -23,6 +23,14 @@ POST /liftings/:id/reviews
 The $pull operator removes from an existing array all instances of a value or values that match a
 specified condition.
 
+-using express.Router() for handiling routes easily 
+
+# Authentication and Authrization
+
+-cookies
+- express-session and content-flash
+
+
 
 
 
