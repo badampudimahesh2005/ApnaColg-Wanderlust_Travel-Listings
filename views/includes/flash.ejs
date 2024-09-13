@@ -1,17 +1,29 @@
-
-
 <% if( success && success.length){ %>
-  <div class="alert alert-success alert-dismissible fade show col-6 offset-3 " role="alert">
+  <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
     <strong><%= success %></strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
+<% } %>
 
-  <% } %>
+<% if( error && error.length){ %>
+  <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
+    <strong><%= error %></strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
 
-  <% if( error && error.length){ %>
-    <div class="alert alert-danger alert-dismissible fade show col-6 offset-3 " role="alert">
-      <strong><%= error %></strong>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  
-    <% } %>
+<!-- JavaScript to automatically dismiss the alerts -->
+<script>
+  // Wait for the DOM to load
+  document.addEventListener("DOMContentLoaded", function () {
+    // Set a timeout to close alerts after 3 seconds (3000 milliseconds)
+    setTimeout(function () {
+      const alertElements = document.querySelectorAll('.alert');
+      alertElements.forEach(function (alert) {
+        // Use Bootstrap's built-in alert dismissal method
+        let bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+      });
+    }, 3000); // Adjust time if needed
+  });
+</script>

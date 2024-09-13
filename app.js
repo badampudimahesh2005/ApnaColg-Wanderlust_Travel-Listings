@@ -14,8 +14,13 @@ const flash = require("connect-flash");
 // const wrapAsync = require("./utils/wrapAsync.js");
 // const {listingSchema, reviewSchema} = require("./schema.js");
 
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
+
 const listingsRoutes = require("./routes/listing.js");
 const reviewsRoutes = require("./routes/review.js");
+const userRoutes = require("./routes/user.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
@@ -63,6 +68,29 @@ app.use(session(sessionConfig));
 // we should use flash after routes because we want to use flash in routes  and flash should be used after session
 app.use(flash());
 
+
+/* `app.use(passport.initialize());` is initializing Passport middleware in the Express application.
+Passport is a popular authentication middleware for Node.js that provides a simple way to
+authenticate users using different strategies such as username and password, OAuth, etc. */
+app.use(passport.initialize());
+
+/* `app.use(passport.session());` is setting up Passport to use session-based authentication in the
+Express application. This middleware is responsible for restoring authentication state across HTTP
+requests. When a user is authenticated, Passport will serialize the user instance to the session.
+Subsequently, for each request, Passport will deserialize the user instance, providing it as
+`req.user`. This allows the application to maintain user authentication state across requests. */
+app.use(passport.session());
+
+/* The line `app.use(new LocalStrategy(User.authenticate()));` is setting up a local authentication
+strategy using Passport.js in your Express application. */
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
+
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
@@ -70,12 +98,22 @@ app.use((req, res, next) => {
 }
 );
 
+// app.get("/fakeUser", async (req, res) => {
+//   const user = new User({ email: "user@gmail.com", username: "user" }); 
+//   const newUser = await User.register(user, "chicken");
+//   res.send(newUser);
+// }
+// );
+
+
 
 
 
 app.use("/listings", listingsRoutes);
 
 app.use("/listings/:id/reviews", reviewsRoutes);
+
+app.use("/", userRoutes);
 
 // app.get("/testListing", async (req, res) => {
 //   let sampleListing = new Listing({
