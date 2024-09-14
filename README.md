@@ -65,3 +65,9 @@ app.use(new LocalStrategy(User.authenticate()));
 - we can do this by using passport.isAuthenticated()
 
 -create a logout route
+
+-create login button in header  and link to login route
+-create  logout button in header and link to logout route and show only when user is not logged in -> using req.user(access by locals)
+
+-create the functionality -> after signup user get login automatically, for this we use login method from passport
+-create the functionality -> when user try to create|edit|update listing without login ,it navigates to login page then after login ,it should navigate again to the orginal page which is create|edit|update  (req.path , req.originalUrl)

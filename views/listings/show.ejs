@@ -8,15 +8,17 @@
     <div class="card col-6 offset-2 listing-card" >
       <img src="<%= listing.image %>"style="height: 20rem;" class="card-img-top" alt="listing-image">
       <div class="card-body">
-       <b> <h6 class="card-title">Details:</h6></b>
-        <p class="card-text">
-         
-            <%= listing.description %><br>
-            &#8377; <%= listing.price.toLocaleString("en-IN") %><br>
-           <%= listing.location %><br>
-       <%= listing.country %><br>
+       <b> <h6 class="card-text">created by:<%= listing.owner.username %></h6></b><br>
+
+       
+        <p class="card-text"><%= listing.description %></p>
+         <p class="card-text">&#8377; <%= listing.price.toLocaleString("en-IN") %></p>
+         <p class="card-text"> <%= listing.location %></p>
+         <p class="card-text"><%= listing.country %></p>
+          
         
-        </p>
+        
+       
       </div>
     </div>
     

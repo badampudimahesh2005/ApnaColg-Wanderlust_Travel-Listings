@@ -50,7 +50,7 @@ router.get("/", wrapAsync(async (req, res) => {
   //Show Route
   router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id).populate("reviews").populate("owner");
     if(!listing){
       req.flash("error", "Cannot find the listing !");
       return res.redirect("/listings");
@@ -60,7 +60,7 @@ router.get("/", wrapAsync(async (req, res) => {
   );
   
   //Create Route
-  router.post("/", validateListing,isLoggedIn,wrapAsync(async (req, res, next) => {
+  router.post("/", isLoggedIn,validateListing,wrapAsync(async (req, res, next) => {
     // if(!req.body.listing){
     //   throw new ExpressError(400, "Send a valid data for listing");
     // }
@@ -71,6 +71,7 @@ router.get("/", wrapAsync(async (req, res) => {
     //   throw new ExpressError(400,result.error)
     // }
     const newListing = new Listing(req.body.listing);
+    newListing.owner = req.user._id;
     await newListing.save();
     req.flash("success", "Successfully new list is created !");
     res.redirect("/listings");
@@ -96,7 +97,7 @@ router.get("/", wrapAsync(async (req, res) => {
 
   
   //Update Route
-  router.put("/:id", validateListing,isLoggedIn, wrapAsync(async (req, res) => {
+  router.put("/:id", isLoggedIn,validateListing, wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     req.flash("success", "Successfully updated the listing !");
