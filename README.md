@@ -74,4 +74,10 @@ app.use(new LocalStrategy(User.authenticate()));
 
 created listing owner
 
+# authorization for listing
 -show the edit and delete button to only owner of the listing in show route
+- and only the owners can edit or delete the listing
+
+# authorization for reviews
+-create auther field in review schema reference from user
+

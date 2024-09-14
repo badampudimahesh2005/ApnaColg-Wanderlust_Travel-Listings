@@ -8,6 +8,7 @@ const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 
 const {isLoggedIn, isOwner} = require("../middleware.js");
+const path = require('path');
 
 /**
  * The function `validateListing` validates a request body against a schema and throws an error if
@@ -50,7 +51,15 @@ router.get("/", wrapAsync(async (req, res) => {
   //Show Route
   router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews").populate("owner");
+    const listing = await Listing.findById(id)
+    .populate({
+      path: "reviews",
+      populate: {
+          path: "author"
+      },
+    })
+    .populate("owner");
+
     if(!listing){
       req.flash("error", "Cannot find the listing !");
       return res.redirect("/listings");
@@ -58,6 +67,10 @@ router.get("/", wrapAsync(async (req, res) => {
     res.render("listings/show.ejs", { listing });
   })
   );
+
+
+
+
   
   //Create Route
   router.post("/", isLoggedIn,validateListing,wrapAsync(async (req, res, next) => {
