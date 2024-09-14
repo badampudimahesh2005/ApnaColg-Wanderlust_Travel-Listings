@@ -71,3 +71,7 @@ app.use(new LocalStrategy(User.authenticate()));
 
 -create the functionality -> after signup user get login automatically, for this we use login method from passport
 -create the functionality -> when user try to create|edit|update listing without login ,it navigates to login page then after login ,it should navigate again to the orginal page which is create|edit|update  (req.path , req.originalUrl)
+
+created listing owner
+
+-show the edit and delete button to only owner of the listing in show route

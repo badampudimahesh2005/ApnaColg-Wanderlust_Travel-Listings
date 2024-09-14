@@ -7,7 +7,7 @@ const {listingSchema, reviewSchema} = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 
-const {isLoggedIn} = require("../middleware.js");
+const {isLoggedIn, isOwner} = require("../middleware.js");
 
 /**
  * The function `validateListing` validates a request body against a schema and throws an error if
@@ -97,8 +97,9 @@ router.get("/", wrapAsync(async (req, res) => {
 
   
   //Update Route
-  router.put("/:id", isLoggedIn,validateListing, wrapAsync(async (req, res) => {
+  router.put("/:id", isLoggedIn,isOwner,validateListing, wrapAsync(async (req, res) => {
     let { id } = req.params;
+    
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     req.flash("success", "Successfully updated the listing !");
     res.redirect(`/listings/${id}`);
@@ -107,7 +108,7 @@ router.get("/", wrapAsync(async (req, res) => {
   
 
   //Delete Route
-  router.delete("/:id",isLoggedIn, wrapAsync(async (req, res) => {
+  router.delete("/:id",isLoggedIn,isOwner, wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id);
     // console.log(deletedListing);
