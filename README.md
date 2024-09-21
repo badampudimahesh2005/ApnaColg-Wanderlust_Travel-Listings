@@ -80,4 +80,11 @@ created listing owner
 
 # authorization for reviews
 -create auther field in review schema reference from user
+-creating  the functionality that only logined user can create the review  -> non-logined used cannot create the  review 
+
+-we can do this by comparing the current user and  the author of the review 
+
+
+-creating MVC model
+-styling the review page
 

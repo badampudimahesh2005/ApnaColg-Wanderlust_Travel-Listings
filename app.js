@@ -25,6 +25,9 @@ const userRoutes = require("./routes/user.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
 
+/**
+ * The above code snippet connects to a MongoDB database using Mongoose in a Node.js application.
+ */
 main()
   .then(() => {
     console.log("connected to DB");
