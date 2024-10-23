@@ -8,6 +8,11 @@ const ExpressError = require("../utils/ExpressError.js");
 const {isLoggedIn, isOwner} = require("../middleware.js");
 const { index, renderNewForm, showListing, createListing, editListing, updateListing, deleteListing } = require('../controllers/listingController.js');
 
+
+const multer  = require('multer')
+const {storage} = require("../cloudConfig.js");
+const upload = multer({ storage})
+
 /**
  * The function `validateListing` validates a request body against a schema and throws an error if
  * validation fails.
@@ -32,6 +37,17 @@ const validateListing = (req,res,next)=>{
     }
   }
 
+
+  // router.route("/")
+  // .get( wrapAsync(index))
+  // .post( 
+  //   isLoggedIn,
+  //   validateListing,
+  //   wrapAsync(createListing)
+  // );
+
+
+
 //Index Route
 router.get("/", wrapAsync(index)
   );
@@ -54,11 +70,15 @@ router.get("/", wrapAsync(index)
 
   
   //Create Route
-  router.post("/", 
+  router
+  .post("/", 
     isLoggedIn,
+    upload.single('listing[image]'),
     validateListing,
+
     wrapAsync(createListing)
   );
+  
   
 
   //Edit Route
@@ -73,6 +93,7 @@ router.get("/", wrapAsync(index)
   router.put("/:id", 
     isLoggedIn,
     isOwner,
+    upload.single('listing[image]'),
     validateListing,
      wrapAsync(updateListing)
   );

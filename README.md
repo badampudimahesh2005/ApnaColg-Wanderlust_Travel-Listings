@@ -88,3 +88,61 @@ created listing owner
 -creating MVC model
 -styling the review page
 
+
+# changing the image  upload functionality from link to  file upload
+
+problems we faced 
+1. the code we made so far for image cannot send image file to backend
+2. after solving problem 1 and  sending the image file to backend,but mongodb stores the image file in BSON format but it has some limit  of size and it is not good for storing large images . we want to store the images with high quality  and large size but  it is not possible with mongodb BSON format . we need to  store the images in a 3rd party service like amazon  or google cloud storage . 
+
+what is multer?
+multer is a middleware for handling multipart/form-data, which is primarily used for uploading files. It is used to parse  the incoming request and extract the uploaded file(s) from the request body.
+
+what problem we face if we dont use multer?
+if we dont use multer, the image file will not be sent to the backend and we will get  an error in the backend. 
+
+-For it is saving the images in upload folder 
+
+- but now we set up a cloud storage to store images -->set up cloudinary and add apikey
+- we are using cloudinary to store images in cloud storage and we are using multer to handle multipart
+
+-install cloudinary and multer-storage-cloudinary
+
+- form(file) --> backend (parse) --> cloud (store) -->url/link(store in backend)
+
+# Create a cloudConfig.js file
+
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+
+//linking the backend and the cloudn=inary account
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET
+})
+
+//configuring the storage for the images uploaded to cloudinary account 
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      folder: 'wanderlust_DEV',
+      format: async (req, file) => 'jpg',
+      allowedFormats:['jpg', 'png', 'jpeg']
+    },
+  });
+
+
+module.exports = {cloudinary , storage}
+
+-modify the create route to save the image in the cloudinary  account
+
+-modify the listing model image :{url , filename}
+
+-modify the createListing controller in listingController to save the link in the database 
+-modify the data in init folder
+
+-modify the edit listing  controller to save the image as file like above
+

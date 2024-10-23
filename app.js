@@ -1,3 +1,6 @@
+
+require('dotenv').config();
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -21,8 +24,10 @@ const User = require("./models/user.js");
 const listingsRoutes = require("./routes/listing.js");
 const reviewsRoutes = require("./routes/review.js");
 const userRoutes = require("./routes/user.js");
+const { console } = require('inspector');
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+
 
 
 /**
@@ -63,7 +68,7 @@ const sessionConfig = {
 
 
 app.get("/", (req, res) => {
-  res.send("Hi, I am root");
+  res.send(process.env.KEY);
 });
 
 
@@ -88,6 +93,9 @@ app.use(passport.session());
 strategy using Passport.js in your Express application. */
 passport.use(new LocalStrategy(User.authenticate()));
 
+/* `passport.serializeUser(User.serializeUser());` and
+`passport.deserializeUser(User.deserializeUser());` are setting up serialization and deserialization
+functions for Passport.js in the Express application. */
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
