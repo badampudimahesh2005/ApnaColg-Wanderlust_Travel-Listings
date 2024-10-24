@@ -67,9 +67,7 @@ const sessionConfig = {
 
 
 
-app.get("/", (req, res) => {
-  res.send(process.env.KEY);
-});
+
 
 
 app.use(session(sessionConfig));

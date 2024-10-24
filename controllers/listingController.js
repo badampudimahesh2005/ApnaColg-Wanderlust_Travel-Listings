@@ -68,8 +68,11 @@ module.exports.index = async (req, res) => {
       req.flash("error", "Cannot find the listing !");
       return res.redirect("/listings");
     }
+    let orginalImageUrl = listing.image.url;
+    orginalImageUrl=orginalImageUrl.replace("/upload","/upload/h_200,w_200");
+
     req.flash("success", "Successfully edited the listing !");
-    res.render("listings/edit.ejs", { listing });
+    res.render("listings/edit.ejs", { listing , orginalImageUrl});
   }
 
   //update listing
