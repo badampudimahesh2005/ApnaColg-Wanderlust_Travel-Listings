@@ -8,7 +8,93 @@
     </form>
     -->
     <!-- <h3>All Listings</h3> -->
+     <style>
+      #filters{
+        display: flex;
+        flex-wrap: wrap;
+       
+      }
+      .filter{
+        text-align: center;
+        margin-top: 2rem;
+        margin-right: 2rem;
+        opacity: 0.7;
+        /* padding: 0.5rem 1rem;
+       
+        border-radius: 1rem;
+        background-color: #f0f0f0;
+        color: #333;
+        font-size: 1.2rem; */
+        cursor: pointer;
+      }
+      .filter:hover{
+        opacity: 1;
+        cursor: pointer;
+      }
+
+      .filter p{
+        font-size: 0.8rem;
+      }
+
+     </style>
      
+    <div id="filters">
+      <!-- Trending -->
+      <div class="filter">
+       <div><i class="fa-solid fa-fire"></i></div>
+      <p>Trending</p>
+      </div>
+
+      <!-- Rooms -->
+      <div class="filter">
+        <div><i class="fa-solid fa-bed"></i></div>
+       <p>Rooms</p>
+       </div>
+
+       <!-- Iconic cities -->
+       <div class="filter">
+        <div><i class="fa-solid fa-mountain-city"></i></div>
+       <p>Iconic cities</p>
+       </div>
+
+       <!-- Mountains -->
+       <div class="filter">
+        <div><i class="fa-solid fa-mountain"></i></div>
+       <p>Mountains</p>
+       </div>
+
+       <!-- castles -->
+       <div class="filter">
+        <div><i class="fa-brands fa-fort-awesome"></i></div>
+       <p>Castles</p>
+       </div>
+
+       <!-- Amazing pools -->
+       <div class="filter">
+        <div><i class="fa-solid fa-person-swimming"></i></div>
+       <p>Amazing pools</p>
+       </div>
+
+        <!-- camping -->
+        <div class="filter">
+          <div><i class="fa-solid fa-tent"></i></div>
+         <p>camping</p>
+         </div>
+  
+         <!-- Farms -->
+         <div class="filter">
+          <div><i class="fa-solid fa-cow"></i></div>
+         <p>Farms</p>
+         </div>
+  
+         <!-- Arcitic -->
+         <div class="filter">
+          <div><i class="fa-regular fa-snowflake"></i></div>
+         <p>Arctic</p>
+         </div>
+
+       
+    </div>
 
    <div class="row row-cols-lg-3 row-cols=sm-1 row-cols-md-2">
      
