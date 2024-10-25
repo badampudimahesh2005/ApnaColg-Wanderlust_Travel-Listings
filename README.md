@@ -148,4 +148,24 @@ module.exports = {cloudinary , storage}
 
 
 
+# maps 
+
+
+# deployment 
+- create a new file called .env in the root of the project
+-create account in mongo-atlas
+-change the  connection string in the .env file to the one from mongo-atlas
+-changing the session code because till now it saves  the session in the local machine but we need to store in mongo db for this we use connnect-mongo  package
+
+-for deployment we are using the RENDER platform 
+-push the code github to connect code with render
+
+
+
+
+
+
+
+
+
 

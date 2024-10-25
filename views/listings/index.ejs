@@ -2,7 +2,7 @@
   
 
 <% layout("/layouts/boilerplate") %>
-  <body>
+  
       <!-- <form method="GET" action="/listings/new">
       <button>Create New Listing</button>
     </form>
@@ -12,6 +12,8 @@
       #filters{
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
        
       }
       .filter{
@@ -35,8 +37,27 @@
       .filter p{
         font-size: 0.8rem;
       }
+      .tax-toggle{
+        margin: 1rem;
+      }
+      
+      .tax-info{
+        display: none;
+      }
+      .tax-toggle{
+        border: 1px solid black;
+        border-radius: 1rem;
+        height: 2.5rem;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        align-self:flex-end;
+
+        
+      }
 
      </style>
+     
      
     <div id="filters">
       <!-- Trending -->
@@ -93,9 +114,16 @@
          <p>Arctic</p>
          </div>
 
-       
+         <div class="tax-toggle">
+          <div class="form-check-reverse form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+          </div>
+         </div>
+ 
     </div>
 
+   
    <div class="row row-cols-lg-3 row-cols=sm-1 row-cols-md-2">
      
 
@@ -110,6 +138,7 @@
             <%= listing.description %>
             <br>
             &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+            <i class="tax-info"> &nbsp &nbsp +18%gst</i>
           </p>
         </div>
       </div>
@@ -118,5 +147,16 @@
    </div>
 
 
-   
-  </body>
+<script>
+let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click",()=> {
+    let taxInfo = document.querySelectorAll(".tax-info");
+    taxInfo.forEach((info)=>{
+      if(info.style.display != "inline"){
+        info.style.display = "inline";
+      }else{ 
+        info.style.display = "none";
+      }
+    })
+  })
+</script>
